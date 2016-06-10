@@ -1,0 +1,87 @@
+using UnityEngine;
+using System.Collections;
+
+public class PlayerScript : MonoBehaviour {
+	public float speed = 6.0F;
+	public float jumpSpeed = 8.0F;
+	public float gravity = 20.0F;
+	private Vector3 moveDirection = Vector3.zero;
+	private Vector3 startPosition;
+	private bool isDead = false;
+	private bool respawned = false;
+	private RaycastHit hit;
+	// Use this for initialization
+
+	private float distToGround;
+
+	private Rigidbody rb2d;
+
+	void Awake () 
+	{
+		rb2d = GetComponent<Rigidbody>();
+		startPosition = transform.position;
+		distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
+	}
+
+	void Update() {
+		//CharacterController controller = GetComponent<CharacterController>();
+
+		bool isgg = IsGrounded ();
+
+		if(!isDead && !respawned)
+		{
+			if (IsGrounded()) {
+				if (Physics.Raycast (transform.position, -Vector3.up, out hit)) {
+					transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+				}
+				
+				moveDirection = new Vector3(-2, 0, 0);
+				moveDirection = transform.TransformDirection(moveDirection);
+				moveDirection *= speed;
+				if (Input.GetButton("Jump"))
+					moveDirection.y = jumpSpeed;
+				for (int i = 0; i < Input.touchCount; ++i) {
+					if (Input.GetTouch (i).phase == TouchPhase.Began) {
+						moveDirection.y = jumpSpeed;
+					}
+				}
+			}
+			moveDirection.y -= gravity * Time.deltaTime;
+			//controller.Move (moveDirection * Time.deltaTime);
+			rb2d.velocity = (moveDirection);
+			//rb2d.AddForce (new Vector3 (20, 0, 0));
+			//controller.Move(new Vector3(10,0,0) * Time.deltaTime);
+		}
+		if (isDead && !respawned) {
+			respawnPlayer ();
+		}
+		if (respawned) {
+			if (Input.GetButton ("Jump"))
+				playerStart ();
+			for (int i = 0; i < Input.touchCount; ++i) {
+				if (Input.GetTouch (i).phase == TouchPhase.Began) {
+					playerStart ();
+				}
+			}
+		}
+	}
+
+	public void setDeath(bool death){
+		isDead = death;
+	}
+
+	void respawnPlayer(){
+		transform.position = startPosition;
+		setDeath (false);
+		respawned = true;
+	}
+
+	void playerStart(){
+		respawned = false;
+	}
+
+	bool IsGrounded(){
+		return Physics.Raycast(transform.position, -Vector3.up, (distToGround + 1.1f));
+	}
+
+}
