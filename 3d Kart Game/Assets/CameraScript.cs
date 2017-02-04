@@ -52,13 +52,13 @@ public class CameraScript : MonoBehaviour {
 
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
-		transform.position = target.position;
+		transform.position = new Vector3(target.position.x, target.position.y, target.position.z);
 		transform.position -= currentRotation * Vector3.forward * distance;
 
 		// Set the height of the camera
-		transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
+		transform.position = new Vector3(transform.position.x + 7f, currentHeight, transform.position.z);
 
 		// Always look at the target
-		transform.LookAt (target);
+		//transform.LookAt (target);
 	}
 }

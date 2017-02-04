@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class PlayerScript : MonoBehaviour {
-	public float speed = 6.0F;
-	public float jumpSpeed = 8.0F;
+	public float speed = 10.0F;
+	public float jumpSpeed = 11.0F;
 	public float gravity = 20.0F;
 	public MenuScript menu;
 	public ScoreScript score;
+	public HighscoreScript highscore;
+
 	private GameObject goldkart9;
 	private GameObject goldkart10;
 	private GameObject goldkart11;
@@ -37,8 +40,10 @@ public class PlayerScript : MonoBehaviour {
 	private bool playerDying = false;
 	private bool hitObsticle = false;
 	private float obsticleTimer = 0;
-
-	private bool onSlope;
+	public AudioSource audioTrackLeave;
+	public AudioSource obsticleHit;
+	public audioScript audioscript;
+	private bool deathMenuTriggered = false;
 
 	// Use this for initialization
 	void Awake () 
@@ -48,7 +53,7 @@ public class PlayerScript : MonoBehaviour {
 		wheelbr = GameObject.Find("wheelbr");
 		wheelbl = GameObject.Find("wheelbl");
 		kart = GameObject.Find ("MineKart");
-		kartObject = GameObject.Find ("kart");
+		kartObject = GameObject.Find ("kart1");
 
 
 		goldkart9 = GameObject.Find ("kart9");
@@ -97,6 +102,7 @@ public class PlayerScript : MonoBehaviour {
 			if (!isDead) {
 				turnWheel ();
 				if (controller.isGrounded) {
+					//trackAudio.Play ();
 					if (!hitObsticle) {
 						rotateToSurface ();
 					}
@@ -105,9 +111,17 @@ public class PlayerScript : MonoBehaviour {
 					moveDirection *= speed;
 					if (Input.GetButton ("Jump")) {
 						moveDirection.y = jumpSpeed;
+						audioTrackLeave.Play ();
+						kart.transform.eulerAngles = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 344f);
 					}
 					if (Input.GetMouseButtonDown(0)) {
+						if (EventSystem.current.IsPointerOverGameObject ()) {
+							//Dont jump
+						} else {
 							moveDirection.y = jumpSpeed;
+							audioTrackLeave.Play ();
+							kart.transform.eulerAngles = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 344f);
+						}
 					}
 				}
 
@@ -121,7 +135,11 @@ public class PlayerScript : MonoBehaviour {
 				//print ("Gravity: " + gravity);
 			}
 			if (isDead) {
-				respawnPlayer (controller);
+				if(!deathMenuTriggered) {
+					deathMenuTriggered = true;
+					triggerDeathMenu (controller);
+
+				}
 			}
 		}
 	}
@@ -129,20 +147,45 @@ public class PlayerScript : MonoBehaviour {
 	public void setDeath(bool death){
 		isDead = death;
 		playerDying = false;
-		trackGen.deadPlayer ();
+		if (trackGen) {
+			trackGen.deadPlayer ();
+		}
 	}
 
-	void respawnPlayer(CharacterController controller){
+	void triggerDeathMenu(CharacterController controller){
+		audioscript.stopTrackSound ();
+		score.showFinalScore (highscore.getHighscore());
+		menu.showDeathMenu ();
+	}
+
+	public void respawnPlayer(){
+		
 		transform.position = startPosition;
-		kart.transform.rotation = startRotation;
+
+
 		setDeath (false);
+		deathMenuTriggered = false;
 		started = false;
 		resetColour ();
 		menu.showMenu ();
 		score.resetTokens ();
+		if (trackGen) {
+			highscore.updateHighscore (score.getDistanceScore());
+			trackGen.resetGame ();
+		}
 		score.resetScore ();
 		resetKartGold ();
-		trackGen.resetGame ();
+	}
+
+	public void savePlayer(){
+		transform.position = new Vector3(transform.position.x, startPosition.y, transform.position.z);
+		transform.rotation = startRotation;
+		setDeath (false);
+		started = false;
+		resetColour ();
+		changekart (score.getGoldScore());
+		trackGen.resetGame();
+		deathMenuTriggered = false;
 	}
 
 	float checkAngle(){
@@ -162,12 +205,14 @@ public class PlayerScript : MonoBehaviour {
 
 	public void startGame(){
 		started = true;
+		audioscript.startTrackSound ();
 	}
 
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		if (hit.transform.tag == "Obstacle" && !hitObsticle) {
 			hitObsticle = true;
-			print ("yoyoyiggityyo");
+			obsticleHit.Play ();
+			audioscript.stopTrackSound ();
 			obsticleTimer = 0;
 			StartCoroutine(obstacleDeath());
 			playerDying = true;
@@ -179,13 +224,12 @@ public class PlayerScript : MonoBehaviour {
 		angle = checkAngle ();
 		if (angle > 10) {
 			//moveDirection = new Vector3 (-2, 0, 0);
+			//transform.rotation = Quaternion.FromToRotation (transform.up, hit.normal) * transform.rotation;
 			kart.transform.rotation = Quaternion.FromToRotation (transform.up, hit.normal) * transform.rotation;
-			onSlope = true;
 		} else {
-			if (onSlope) {
-				kart.transform.rotation = Quaternion.FromToRotation (transform.up, hit.normal) * transform.rotation;
-				onSlope = false;
-			}
+			//transform.rotation = Quaternion.FromToRotation (transform.up, hit.normal) * transform.rotation;
+			kart.transform.rotation = Quaternion.FromToRotation (transform.up, hit.normal) * transform.rotation;
+			//transform.position = new Vector3 (kart.transform.position.x, kart.transform.position.y + 0.1f, kart.transform.position.z);
 		}
 	}
 
@@ -219,6 +263,22 @@ public class PlayerScript : MonoBehaviour {
 			yield return new WaitForSeconds (.1f);
 		}
 		setDeath (true);
+	}
+
+	public void increaseSpeed(){
+		if(!(speed > 16)) {
+			speed = speed + 0.3f;
+			//jumpSpeed = 11.0f;
+			gravity = gravity + 1;
+			audioscript.increaseTrackPitch ();
+		}
+	}
+
+	public void resetSpeed(){
+		speed = 10.0f;
+		jumpSpeed = 11.0f;
+		gravity = 20.0f;
+		audioscript.resetTrackPitch ();
 	}
 
 	public void changekart(float scoreValue){

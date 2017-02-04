@@ -1,22 +1,39 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TrackGeneration.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.AttachToProcess" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\HighscoreScript.cs">
     <Files>
-      <File FileName="Assets\TrackGeneration.cs" Line="74" Column="41" />
-      <File FileName="Assets\PlayerScript.cs" Line="29" Column="29" />
-      <File FileName="Assets\TokenScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\ScoreScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\TrackGeneration.cs" Line="9" Column="33" />
       <File FileName="Assets\ObstacleScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\MenuScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\ScoreScript.cs" Line="1" Column="1" />
       <File FileName="Assets\CameraScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\DeathZon.cs" Line="1" Column="1" />
+      <File FileName="Assets\audioScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\PlayerScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\MenuScript.cs" Line="202" Column="2" />
+      <File FileName="Assets\TokenScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\HighscoreScript.cs" Line="24" Column="16" />
+      <File FileName="Assets\EncryptionScript.cs" Line="61" Column="49" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\PlayerScript.cs" line="225" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\TrackGeneration.cs" line="58" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="118" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="140" column="22" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="161" column="8" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\PlayerScript.cs" line="270" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="193" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="199" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="263" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="204" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="Assets\TrackGeneration.cs" line="37" offsetX="711" offsetY="576" expression="i" liveUpdate="False" />
+    <Watch file="Assets\PlayerScript.cs" line="175" offsetX="774" offsetY="2784" expression="transform.position" liveUpdate="False" />
+    <Watch file="Assets\TrackGeneration.cs" line="234" offsetX="627" offsetY="3728" expression="track[8].activeSelf" liveUpdate="False" />
+    <Watch file="Assets\TrackGeneration.cs" line="234" offsetX="631" offsetY="3760" expression="tester5.activeSelf" liveUpdate="False" />
+    <Watch file="Assets\TrackGeneration.cs" line="141" offsetX="533" offsetY="2213" expression="tester5.active" liveUpdate="False" />
+    <Watch file="Assets\TrackGeneration.cs" line="142" offsetX="737" offsetY="2239" expression="track[8].active" liveUpdate="False" />
+    <Watch file="Assets\TrackGeneration.cs" line="156" offsetX="424" offsetY="2456" expression="tester5.activeSelf" liveUpdate="False" />
+    <Watch file="Assets\TrackGeneration.cs" line="156" offsetX="204" offsetY="2456" expression="previousTrack.activeSelf" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>
