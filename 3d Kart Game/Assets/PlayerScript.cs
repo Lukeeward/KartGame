@@ -44,10 +44,12 @@ public class PlayerScript : MonoBehaviour {
 	public AudioSource obsticleHit;
 	public audioScript audioscript;
 	private bool deathMenuTriggered = false;
-
+	static readonly string PasswordHash = "MineyCart";
+	static readonly string PasswordSalt = "CBPTHAXFDYPWB";
 	// Use this for initialization
 	void Awake () 
 	{
+		ZPlayerPrefs.Initialize(PasswordHash, PasswordSalt);
 		wheelfr = GameObject.Find("wheelfr");
 		wheelfl = GameObject.Find("wheelfl");
 		wheelbr = GameObject.Find("wheelbr");
@@ -266,7 +268,7 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	public void increaseSpeed(){
-		if(!(speed > 16)) {
+		if(!(speed > 16.5f)) {
 			speed = speed + 0.3f;
 			//jumpSpeed = 11.0f;
 			gravity = gravity + 1;

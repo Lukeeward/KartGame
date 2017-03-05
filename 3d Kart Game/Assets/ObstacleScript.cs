@@ -4,6 +4,6 @@ using System.Collections;
 public class ObstacleScript : MonoBehaviour {
 
 	void OnTriggerEnter( Collider smash) {
-		print ("test");
+		print ("Player crash");
 	}
 }

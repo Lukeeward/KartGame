@@ -4,11 +4,10 @@ using GameAnalyticsSDK;
 
 public class HighscoreScript : MonoBehaviour {
 
-	EncryptionScript encryptionScript = new EncryptionScript();
-
+	float localHighscore = 0f;
 	// Use this for initialization
 	void Start () {
-	
+		localHighscore = ZPlayerPrefs.GetFloat("highscore");
 	}
 	
 	// Update is called once per frame
@@ -17,8 +16,7 @@ public class HighscoreScript : MonoBehaviour {
 	}
 
 	public bool checkHighscore(float score){
-		float oldHighscore = encryptionScript.getPlayerPref("highscore");
-		if(score > oldHighscore){
+		if(score > localHighscore){
 			return true;
 		}
 		return false;
@@ -26,13 +24,15 @@ public class HighscoreScript : MonoBehaviour {
 
 	public void updateHighscore(float newHighscore){
 		if(checkHighscore(newHighscore)){
-			encryptionScript.savePlayerPref("highscore", newHighscore);
+			ZPlayerPrefs.SetFloat("highscore", newHighscore);
+			localHighscore = newHighscore;
 			GameAnalytics.NewDesignEvent ("High score", newHighscore);
 		}
 	}
 
 	public float getHighscore(){
-		return (encryptionScript.getPlayerPref("highscore"));
+		float highscore = ZPlayerPrefs.GetFloat("highscore");
+		return highscore;
 	}
 
 }

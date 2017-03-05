@@ -10,6 +10,7 @@ public class TrackGeneration : MonoBehaviour {
 	private List<GameObject> backgrounds;
 	private List<GameObject> gold;
 	private List<GameObject> obstacles;
+	private List<GameObject> enemies;
 	private List<GameObject> pretrackpeices;
 	public GameObject player;
 	public bool floorDebug = true; //DEBUG: STOPS HOLES APPEARING
@@ -27,6 +28,7 @@ public class TrackGeneration : MonoBehaviour {
 		pretrackpeices = new List<GameObject> ();
 		kartObject = GameObject.Find ("kart1");
 		playerDead = false;
+		enemies = new List<GameObject> ();
 		startPosition = player.transform.position;
 		//Initiate Track
 		for (int i = 0; i < 10; i++) {
@@ -89,6 +91,28 @@ public class TrackGeneration : MonoBehaviour {
 			kartObstacle.SetActive (false);
 			obstacles.Add (kartObstacle);
 		}
+
+		for (int i = 0; i < 2; i++) {
+			GameObject enemy;
+			switch (i) {
+			case 1:
+				enemy = Instantiate (Resources.Load ("fullkartEnemy2") as GameObject);
+				break;
+			case 2:
+				enemy = Instantiate (Resources.Load ("fullkartEnemy3") as GameObject);
+				break;
+			default:
+				enemy = Instantiate (Resources.Load ("fullkartEnemy") as GameObject);
+				break;
+			}
+			enemy.SetActive (false);
+			enemies.Add (enemy);
+		}
+
+		foreach (GameObject game in enemies) {
+			game.SetActive (false);
+		}
+
 		trackSize = track.ElementAt(1).GetComponent<Renderer>().bounds.size.x;
 	}
 
@@ -114,17 +138,16 @@ public class TrackGeneration : MonoBehaviour {
 					int trackAction = Random.Range (1, 10);
 					int goldAction = Random.Range (1, 10);
 
-					GameObject tester5 = track.ElementAt (i);
+					GameObject currentTrack = track.ElementAt (i);
 					track.RemoveAt (i);
-					tester5.SetActive (true);
-					tester5.transform.FindChild ("endRight").gameObject.SetActive (false);
-					tester5.transform.FindChild ("endLeft").gameObject.SetActive (false);
-					tester5.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
-					tester5.transform.position = new Vector3 (track.LastOrDefault ().transform.position.x + track.LastOrDefault ().GetComponent<Renderer> ().bounds.size.x, track.LastOrDefault ().transform.position.y, track.LastOrDefault ().transform.position.z);
-					tester5.transform.FindChild ("support").gameObject.SetActive (true);
+					currentTrack.SetActive (true);
+					currentTrack.transform.FindChild ("endRight").gameObject.SetActive (false);
+					currentTrack.transform.FindChild ("endLeft").gameObject.SetActive (false);
+					currentTrack.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
+					currentTrack.transform.position = new Vector3 (track.LastOrDefault ().transform.position.x + track.LastOrDefault ().GetComponent<Renderer> ().bounds.size.x, track.LastOrDefault ().transform.position.y, track.LastOrDefault ().transform.position.z);
+					currentTrack.transform.FindChild ("support").gameObject.SetActive (true);
 					//if less than 3 set active to false
 
-					GameObject llaster = track.LastOrDefault();
 					if (trackAction <= 3) {
 						//Previous track is false and so is track before that
 						if (!(track.LastOrDefault ().activeSelf) && !((track [track.Count - 2]).activeSelf)) {
@@ -141,7 +164,7 @@ public class TrackGeneration : MonoBehaviour {
 										//print ("et tu brute?");
 									} else {
 										if (!floorDebug) {
-											tester5.SetActive (false);
+											currentTrack.SetActive (false);
 											if(track.LastOrDefault ().activeSelf){
 												track.LastOrDefault ().transform.FindChild ("endRight").gameObject.SetActive (true);
 											}
@@ -153,61 +176,61 @@ public class TrackGeneration : MonoBehaviour {
 						}
 					}
 					GameObject previousTrack = (track.LastOrDefault ());
-					GameObject kk = track [track.Count - 2];
+					GameObject previousTrack2 = track [track.Count - 2];
 
 					//If previous track is false but current is true then add left end peice
-					if((!previousTrack.activeSelf) && tester5.activeSelf){
-						tester5.transform.FindChild ("endLeft").gameObject.SetActive (true);
+					if((!previousTrack.activeSelf) && currentTrack.activeSelf){
+						currentTrack.transform.FindChild ("endLeft").gameObject.SetActive (true);
 					}
 
 
 					//if track action 8 rotate the track
-					if (trackAction == 8 && !(!previousTrack.activeSelf && !kk.activeSelf)) {
-						if(tester5.transform.position.y >= 14.6f){
+					if (trackAction == 8 && !(!previousTrack.activeSelf && !previousTrack2.activeSelf)) {
+						if(currentTrack.transform.position.y >= 14.6f){
 
 						} else {
-							tester5.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 16));
-							tester5.transform.position = new Vector3 (tester5.transform.position.x, tester5.transform.position.y + 1.2f, tester5.transform.position.z);
+							currentTrack.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 16));
+							currentTrack.transform.position = new Vector3 (currentTrack.transform.position.x, currentTrack.transform.position.y + 1.2f, currentTrack.transform.position.z);
 						}
 					}
 
 					if (previousTrack.transform.eulerAngles == new Vector3 (0, 0, 16) && previousTrack.activeSelf) {
-						tester5.transform.position = new Vector3 (tester5.transform.position.x - 0.27f, tester5.transform.position.y + (1f), tester5.transform.position.z);
+						currentTrack.transform.position = new Vector3 (currentTrack.transform.position.x - 0.27f, currentTrack.transform.position.y + (1f), currentTrack.transform.position.z);
 					}
-					if (previousTrack.transform.eulerAngles == new Vector3 (0, 0, 16) && previousTrack.activeSelf && !tester5.activeSelf) {
-						tester5.SetActive (true);
+					if (previousTrack.transform.eulerAngles == new Vector3 (0, 0, 16) && previousTrack.activeSelf && !currentTrack.activeSelf) {
+						currentTrack.SetActive (true);
 					}
 
 
 
 					//if track action 9 rotate the track
-					if (trackAction == 9 && !(!previousTrack.activeSelf && !kk.activeSelf)) {
-						if(tester5.transform.position.y <= -14.6f){
+					if (trackAction == 9 && !(!previousTrack.activeSelf && !previousTrack2.activeSelf)) {
+						if(currentTrack.transform.position.y <= -14.6f){
 
 						} else {
-							tester5.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 344));
-							tester5.transform.position = new Vector3 (tester5.transform.position.x - 0.4f, tester5.transform.position.y - 1.08f, tester5.transform.position.z);
+							currentTrack.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, 344));
+							currentTrack.transform.position = new Vector3 (currentTrack.transform.position.x - 0.4f, currentTrack.transform.position.y - 1.08f, currentTrack.transform.position.z);
 						}
 					}
 					if (previousTrack.transform.eulerAngles.z == 344 && previousTrack.activeSelf) {
-						tester5.transform.position = new Vector3 (tester5.transform.position.x, tester5.transform.position.y - (1.09f), tester5.transform.position.z);
+						currentTrack.transform.position = new Vector3 (currentTrack.transform.position.x, currentTrack.transform.position.y - (1.09f), currentTrack.transform.position.z);
 					}
-					if (previousTrack.transform.eulerAngles == new Vector3 (0, 0, 344) && previousTrack.activeSelf && !tester5.activeSelf) {
-						tester5.SetActive (true);
+					if (previousTrack.transform.eulerAngles == new Vector3 (0, 0, 344) && previousTrack.activeSelf && !currentTrack.activeSelf) {
+						currentTrack.SetActive (true);
 					}
 
 					//If current track is rotated after a hole then add/take some hieght in order to account for end peice
-					if (tester5.transform.eulerAngles == new Vector3 (0, 0, 16) && !previousTrack.activeSelf) {
-						tester5.transform.position = new Vector3 (tester5.transform.position.x, tester5.transform.position.y + (1f), tester5.transform.position.z);
+					if (currentTrack.transform.eulerAngles == new Vector3 (0, 0, 16) && !previousTrack.activeSelf) {
+						currentTrack.transform.position = new Vector3 (currentTrack.transform.position.x, currentTrack.transform.position.y + (1f), currentTrack.transform.position.z);
 					}
 					//Same as above but different angle
-					if (tester5.transform.eulerAngles == new Vector3 (0, 0, 344) && !previousTrack.activeSelf) {
-						tester5.transform.position = new Vector3 (tester5.transform.position.x, tester5.transform.position.y - (1f), tester5.transform.position.z);
+					if (currentTrack.transform.eulerAngles == new Vector3 (0, 0, 344) && !previousTrack.activeSelf) {
+						currentTrack.transform.position = new Vector3 (currentTrack.transform.position.x, currentTrack.transform.position.y - (1f), currentTrack.transform.position.z);
 					}
 						
 					//Support rules
-					if (!tester5.activeSelf) {
-						tester5.transform.FindChild ("support").gameObject.SetActive (false);
+					if (!currentTrack.activeSelf) {
+						currentTrack.transform.FindChild ("support").gameObject.SetActive (false);
 						//if track before last does not has support then add to previous track before current hole
 						if(!track.ElementAt (track.Count - 1).transform.FindChild ("support").gameObject.activeSelf){
 							track.LastOrDefault ().transform.FindChild ("support").gameObject.SetActive (false);
@@ -216,30 +239,30 @@ public class TrackGeneration : MonoBehaviour {
 
 					//if last track was a hole make current track have support
 					if(!track.LastOrDefault().activeSelf){
-						tester5.transform.FindChild ("support").gameObject.SetActive (true);
+						currentTrack.transform.FindChild ("support").gameObject.SetActive (true);
 					}
 					//if track is rotated remove supports
-					if(tester5.transform.eulerAngles != new Vector3 (0, 0, 0)){
-						tester5.transform.FindChild ("support").gameObject.SetActive (false);
+					if(currentTrack.transform.eulerAngles != new Vector3 (0, 0, 0)){
+						currentTrack.transform.FindChild ("support").gameObject.SetActive (false);
 					}
 					if (track.LastOrDefault ().transform.FindChild ("support").gameObject.activeSelf) {
-						tester5.transform.FindChild ("support").gameObject.SetActive (false);
+						currentTrack.transform.FindChild ("support").gameObject.SetActive (false);
 					}
 
 					//Set end peice to false if previous track is visible and so is current
 					//Current may have been previously set to false causing the previous tracks endpeice to be set to true
 					//But since then current has been overwritten to true
-					if(previousTrack.activeSelf && tester5.activeSelf){
+					if(previousTrack.activeSelf && currentTrack.activeSelf){
 						track.LastOrDefault ().transform.FindChild ("endRight").gameObject.SetActive (false);
 					}
 
 					//If last track is false but one before and current are true then widen the gap due to end peices
-					if((!previousTrack.activeSelf) && kk.activeSelf && tester5.activeSelf){
-						tester5.transform.position = new Vector3 (tester5.transform.position.x + 7f, tester5.transform.position.y, tester5.transform.position.z);
+					if((!previousTrack.activeSelf) && previousTrack2.activeSelf && currentTrack.activeSelf){
+						currentTrack.transform.position = new Vector3 (currentTrack.transform.position.x + 7f, currentTrack.transform.position.y, currentTrack.transform.position.z);
 					}
 					//If lasttwo tracks are false then again, widen the gap
-					if((!previousTrack.activeSelf) && (!kk.activeSelf) && tester5.activeSelf){
-						tester5.transform.position = new Vector3 (tester5.transform.position.x + 6f, tester5.transform.position.y, tester5.transform.position.z);
+					if((!previousTrack.activeSelf) && (!previousTrack2.activeSelf) && currentTrack.activeSelf){
+						currentTrack.transform.position = new Vector3 (currentTrack.transform.position.x + 6f, currentTrack.transform.position.y, currentTrack.transform.position.z);
 					}
 
 
@@ -255,7 +278,7 @@ public class TrackGeneration : MonoBehaviour {
 								if (!gold.ElementAt (xcount).activeSelf || !gold.ElementAt(xcount).GetComponentInChildren<Renderer>().isVisible) {
 									goldfound = true;
 									gold.ElementAt (xcount).SetActive (true);
-									gold.ElementAt (xcount).transform.position = new Vector3 (tester5.transform.position.x, tester5.transform.position.y + 4f, tester5.transform.position.z);
+									gold.ElementAt (xcount).transform.position = new Vector3 (currentTrack.transform.position.x, currentTrack.transform.position.y + 4f, currentTrack.transform.position.z);
 								}
 							}
 							xcount = xcount + 1;
@@ -267,23 +290,25 @@ public class TrackGeneration : MonoBehaviour {
 					bool foundObs = false;
 					bool tooClose = false;
 					int obsRandom = Random.Range (1, 10);
-					if (tester5.activeSelf) {
+					if (currentTrack.activeSelf) {
 						for (int y = 0; y < 5; y++) {
-							if(obstacles.ElementAt (y).transform.position.x <= tester5.transform.position.x + 20 &&  obstacles.ElementAt (y).transform.position.x >= tester5.transform.position.x - 20){
+							if(obstacles.ElementAt (y).transform.position.x <= currentTrack.transform.position.x + 20 &&  obstacles.ElementAt (y).transform.position.x >= currentTrack.transform.position.x - 20){
 								tooClose = true;
 							}
 						}
 						if (!tooClose&& (obsRandom >= 5)) {
 							if(track.LastOrDefault().activeSelf){
 								if(track.LastOrDefault().transform.eulerAngles == new Vector3 (0, 0, 0)){
-									if (tester5.transform.eulerAngles == new Vector3 (0, 0, 0)) {
+									if (currentTrack.transform.eulerAngles == new Vector3 (0, 0, 0)) {
 										if(!(track.LastOrDefault().activeSelf && !track[track.Count-2].activeSelf)){
 											for (int y = 0; y < 5; y++) {
 												Renderer obsChild = obstacles.ElementAt (y).GetComponentInChildren<Renderer> ();
 												if (!obsChild.isVisible && !foundObs) {
-													obstacles.ElementAt (y).transform.position = new Vector3 (tester5.transform.position.x, tester5.transform.position.y, tester5.transform.position.z);
+													obstacles.ElementAt (y).transform.position = new Vector3 (currentTrack.transform.position.x, currentTrack.transform.position.y, currentTrack.transform.position.z);
 													if(!obsDebug)
 													{
+														//enemies.ElementAt(y).transform.position = new Vector3 (currentTrack.transform.position.x, currentTrack.transform.position.y, currentTrack.transform.position.z);
+														//enemies.ElementAt (y).SetActive (true);
 														obstacles.ElementAt (y).SetActive (true);
 													}
 
@@ -299,7 +324,7 @@ public class TrackGeneration : MonoBehaviour {
 
 
 					//print (trackAction);
-					track.Add (tester5);
+					track.Add (currentTrack);
 				}
 			}
 		}

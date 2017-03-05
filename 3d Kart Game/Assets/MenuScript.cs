@@ -13,9 +13,8 @@ public class MenuScript : MonoBehaviour {
 	public CanvasGroup startButtonCanvasGroup;
 	public CanvasGroup pausedVolumeButtonCanvasGroup;
 	public CanvasGroup saveMePopupCanvas;
-	public CanvasGroup speedIncreaseTextCanvasGroup;
+	public CanvasGroup newHighscoreTextCanvasGroup;
 	public ScoreScript goldscore;
-	public Button buyPanel;
 	public Button muteButton;
 	public Button pausedMuteButton;
 	public Sprite muteSprite;
@@ -27,10 +26,17 @@ public class MenuScript : MonoBehaviour {
 
 
 	public UnityEngine.UI.Button saveMeButton;
+	private int localIsMute = 0;
 	public bool debug;
 	private bool pauseToggle = false;
 	private bool muteToggle = false;
 	private int timesPlayed;
+
+	void Start() {
+		if(PlayerPrefs.HasKey("mute")) {
+			localIsMute = PlayerPrefs.GetInt ("mute");
+		}
+	}
 
 	public void hideMenuAndStartGame(){
 		CanvasGroup menuCanvasGroup = GetComponent<CanvasGroup> ();
@@ -38,6 +44,7 @@ public class MenuScript : MonoBehaviour {
 		menuCanvasGroup.blocksRaycasts = false;
 		showGameUI ();
 		hideDeathMenu ();
+		hideNewHighscoreText ();
 		player.startGame ();
 	}
 
@@ -46,18 +53,18 @@ public class MenuScript : MonoBehaviour {
 		menuCanvasGroup.alpha = 1f;
 		menuCanvasGroup.blocksRaycasts = true;
 		//Get vol preferences
-		if(PlayerPrefs.HasKey("mute")) {
-			if(PlayerPrefs.GetInt ("mute") == 1) {
-				muteButton.image.overrideSprite = muteSprite;
-				pausedMuteButton.image.overrideSprite = muteSprite;
-			} else {
-				muteButton.image.overrideSprite = null;
-				pausedMuteButton.image.overrideSprite = null;
-			}
+		if(localIsMute == 1) {
+			muteButton.image.overrideSprite = muteSprite;
+			pausedMuteButton.image.overrideSprite = muteSprite;
+		} else {
+			muteButton.image.overrideSprite = null;
+			pausedMuteButton.image.overrideSprite = null;
 		}
 		hideGameUI ();
 		hideDeathMenu ();
 		trackGamesPlayed ();
+
+		hideNewHighscoreText ();
 	}
 
 	public void showDeathMenu(){
@@ -80,14 +87,12 @@ public class MenuScript : MonoBehaviour {
 		gameUI.alpha = 1f;
 		gameUI.blocksRaycasts = true;
 		//Get vol preferences
-		if(PlayerPrefs.HasKey("mute")) {
-			if(PlayerPrefs.GetInt ("mute") == 1) {
-				muteButton.image.overrideSprite = muteSprite;
-				pausedMuteButton.image.overrideSprite = muteSprite;
-			} else {
-				muteButton.image.overrideSprite = null;
-				pausedMuteButton.image.overrideSprite = null;
-			}
+		if(localIsMute == 1) {
+			muteButton.image.overrideSprite = muteSprite;
+			pausedMuteButton.image.overrideSprite = muteSprite;
+		} else {
+			muteButton.image.overrideSprite = null;
+			pausedMuteButton.image.overrideSprite = null;
 		}
 	}
 
@@ -191,12 +196,14 @@ public class MenuScript : MonoBehaviour {
 			muteButton.image.overrideSprite = muteSprite;
 			pausedMuteButton.image.overrideSprite = muteSprite;
 			PlayerPrefs.SetInt("mute", 1);
+			localIsMute = 1;
 		} else {
 			muteToggle = false;
 			AudioListener.pause = false;
 			muteButton.image.overrideSprite = null;
 			pausedMuteButton.image.overrideSprite = null;
 			PlayerPrefs.SetInt("mute", 0);
+			localIsMute = 0;
 		}
 	}
 
@@ -267,6 +274,14 @@ public class MenuScript : MonoBehaviour {
 		rateGameCanvas.alpha = 0;
 		rateGameCanvas.blocksRaycasts = false;
 		showMenu ();
+	}
+
+	public void displayNewHighscoreText() {
+		newHighscoreTextCanvasGroup.alpha = 1;
+	}
+
+	public void hideNewHighscoreText() {
+		newHighscoreTextCanvasGroup.alpha = 0;
 	}
 
 }
