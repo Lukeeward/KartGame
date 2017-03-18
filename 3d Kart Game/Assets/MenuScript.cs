@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using GameAnalyticsSDK;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
 
 public class MenuScript : MonoBehaviour {
 
@@ -19,6 +21,7 @@ public class MenuScript : MonoBehaviour {
 	public Button pausedMuteButton;
 	public Sprite muteSprite;
 	public InputField feedbackForm;
+	public LeaderboardScript leaderboard;
 
 	public CanvasGroup enjoyingGameCanvas;
 	public CanvasGroup sendFeedbackCanvas;
@@ -36,6 +39,7 @@ public class MenuScript : MonoBehaviour {
 		if(PlayerPrefs.HasKey("mute")) {
 			localIsMute = PlayerPrefs.GetInt ("mute");
 		}
+		PlayGamesPlatform.Activate ();
 	}
 
 	public void hideMenuAndStartGame(){
@@ -282,6 +286,11 @@ public class MenuScript : MonoBehaviour {
 
 	public void hideNewHighscoreText() {
 		newHighscoreTextCanvasGroup.alpha = 0;
+	}
+
+	public void showHighscores()
+	{
+		leaderboard.OnShowLeaderBoard ();
 	}
 
 }

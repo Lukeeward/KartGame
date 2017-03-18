@@ -1,30 +1,28 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.AttachToProcess" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ScoreScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\LeaderboardScript.cs">
     <Files>
-      <File FileName="Assets\EnemyScript.cs" Line="15" Column="3" />
+      <File FileName="Assets\TrackGeneration.cs" Line="1" Column="1" />
+      <File FileName="Assets\EnemyScript.cs" Line="1" Column="1" />
       <File FileName="Assets\PlayerScript.cs" Line="1" Column="1" />
       <File FileName="Assets\DeathZon.cs" Line="1" Column="1" />
-      <File FileName="Assets\HighscoreScript.cs" Line="16" Column="3" />
-      <File FileName="Assets\ScoreScript.cs" Line="16" Column="41" />
+      <File FileName="Assets\HighscoreScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\ScoreScript.cs" Line="1" Column="1" />
       <File FileName="Assets\ObstacleScript.cs" Line="1" Column="1" />
       <File FileName="Assets\audioScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\MenuScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\MenuScript.cs" Line="293" Column="1" />
       <File FileName="Assets\TokenScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\TrackGeneration.cs" Line="1" Column="1" />
+      <File FileName="Assets\LeaderboardScript.cs" Line="36" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="123" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="145" column="22" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="166" column="8" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="198" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="205" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="270" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\TrackGeneration.cs" line="385" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="71" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\ScoreScript.cs" line="110" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="149" column="22" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="170" column="8" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="202" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="209" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="274" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="75" column="1" />
       <Breakpoint file="E:\Unity\3d Kart Game\Assets\ScoreScript.cs" line="60" column="1" />
       <Breakpoint file="E:\Unity\3d Kart Game\Assets\ScoreScript.cs" line="64" column="1" />
       <Breakpoint file="E:\Unity\3d Kart Game\Assets\ScoreScript.cs" line="68" column="1" />
@@ -32,10 +30,9 @@
       <Breakpoint file="E:\Unity\3d Kart Game\Assets\ScoreScript.cs" line="76" column="1" />
       <Breakpoint file="E:\Unity\3d Kart Game\Assets\ScoreScript.cs" line="85" column="1" />
       <Breakpoint file="E:\Unity\3d Kart Game\Assets\ScoreScript.cs" line="93" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\HighscoreScript.cs" line="34" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="280" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\TrackGeneration.cs" line="108" column="1" />
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\TrackGeneration.cs" line="116" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="284" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\MenuScript.cs" line="293" column="36" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\GooglePlayGames\ISocialPlatform\PlayGamesPlatform.cs" line="1143" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
