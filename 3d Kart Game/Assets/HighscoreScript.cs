@@ -4,6 +4,8 @@ using GameAnalyticsSDK;
 
 public class HighscoreScript : MonoBehaviour {
 
+	public LeaderboardScript leaderboard;
+
 	float localHighscore = 0f;
 	// Use this for initialization
 	void Start () {
