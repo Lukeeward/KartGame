@@ -49,6 +49,7 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 	void Awake () 
 	{
+		Input.simulateMouseWithTouches = true;
 		ZPlayerPrefs.Initialize(PasswordHash, PasswordSalt);
 		wheelfr = GameObject.Find("wheelfr");
 		wheelfl = GameObject.Find("wheelfl");
@@ -116,8 +117,8 @@ public class PlayerScript : MonoBehaviour {
 						audioTrackLeave.Play ();
 						kart.transform.eulerAngles = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 344f);
 					}
-					if (Input.GetMouseButtonDown(0)) {
-						if (EventSystem.current.IsPointerOverGameObject ()) {
+					if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) {
+						if (EventSystem.current.IsPointerOverGameObject (Input.GetTouch(0).fingerId)) {
 							//Dont jump
 						} else {
 							moveDirection.y = jumpSpeed;

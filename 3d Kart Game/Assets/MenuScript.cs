@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using GameAnalyticsSDK;
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
+using System;
 
 public class MenuScript : MonoBehaviour {
 
@@ -19,6 +20,8 @@ public class MenuScript : MonoBehaviour {
 	public ScoreScript goldscore;
 	public Button muteButton;
 	public Button pausedMuteButton;
+	public Button saveMeButton;
+	public Button freeSaveButton;
 	public Sprite muteSprite;
 	public InputField feedbackForm;
 	public LeaderboardScript leaderboard;
@@ -26,9 +29,8 @@ public class MenuScript : MonoBehaviour {
 	public CanvasGroup enjoyingGameCanvas;
 	public CanvasGroup sendFeedbackCanvas;
 	public CanvasGroup rateGameCanvas;
+	public AdsScript ads;
 
-
-	public UnityEngine.UI.Button saveMeButton;
 	private int localIsMute = 0;
 	public bool debug;
 	private bool pauseToggle = false;
@@ -158,6 +160,11 @@ public class MenuScript : MonoBehaviour {
 		} else {
 			saveMeButton.interactable = false;
 		}
+		if (canUseFreeSave ()) {
+			freeSaveButton.interactable = true;
+		} else {
+			freeSaveButton.interactable = false;
+		}
 	}
 
 	private void hideSaveMePopup() {
@@ -171,12 +178,43 @@ public class MenuScript : MonoBehaviour {
 		deathUI.blocksRaycasts = false;
 		if (goldscore.canAffordSave()) {
 			goldscore.buySave ();
-			player.savePlayer ();
-			hideSaveMePopup ();
-			player.startGame ();
-			showGameUI ();
+			closeUIAndContinue ();
 		} else {
 			player.respawnPlayer ();
+		}
+	}
+
+	public void closeUIAndContinue()
+	{
+		player.savePlayer ();
+		hideSaveMePopup ();
+		player.startGame ();
+		showGameUI ();
+	}
+
+	public void freeSave()
+	{
+		if (canUseFreeSave ()) {
+			ads.ShowRewardedAd (this);
+			ZPlayerPrefs.SetString ("freeSysString", DateTime.Now.ToString ());
+		}
+	}
+
+	private bool canUseFreeSave()
+	{
+		DateTime lastUse = DateTime.Now;
+		if (ZPlayerPrefs.HasKey ("freeSysString")) {
+			string lastUseString = ZPlayerPrefs.GetString ("freeSysString");
+			lastUse = DateTime.Parse (lastUseString);
+			var currentTime = DateTime.Now.Ticks;
+			var limitTime = lastUse.AddMinutes (15d).Ticks;
+			if (limitTime < currentTime) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
 		}
 	}
 

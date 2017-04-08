@@ -19,3 +19,5 @@ E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEngine.Networking.xml
 E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp.dll
 E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp.pdb
+E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEngine.Advertisements.dll
+E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEngine.Advertisements.xml

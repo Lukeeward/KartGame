@@ -29,6 +29,7 @@ public class HighscoreScript : MonoBehaviour {
 			ZPlayerPrefs.SetFloat("highscore", newHighscore);
 			localHighscore = newHighscore;
 			GameAnalytics.NewDesignEvent ("High score", newHighscore);
+			leaderboard.OnAddScoreToLeaderBoard (newHighscore);
 		}
 	}
 
