@@ -24,6 +24,11 @@
 
 public static class GPGSIds
 {
+        public const string achievement_travel_1000 = "CgkI7-2Us6EDEAIQBg"; // <GPGSID>
+        public const string achievement_travel_50m = "CgkI7-2Us6EDEAIQAg"; // <GPGSID>
+        public const string achievement_travel_300m = "CgkI7-2Us6EDEAIQBA"; // <GPGSID>
+        public const string achievement_travel_150m = "CgkI7-2Us6EDEAIQAw"; // <GPGSID>
+        public const string achievement_travel_500m = "CgkI7-2Us6EDEAIQBQ"; // <GPGSID>
         public const string leaderboard_highscores = "CgkI7-2Us6EDEAIQAQ"; // <GPGSID>
 
 }

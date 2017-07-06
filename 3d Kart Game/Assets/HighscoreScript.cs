@@ -11,11 +11,6 @@ public class HighscoreScript : MonoBehaviour {
 	void Start () {
 		localHighscore = ZPlayerPrefs.GetFloat("highscore");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public bool checkHighscore(float score){
 		if(score > localHighscore){
@@ -31,6 +26,7 @@ public class HighscoreScript : MonoBehaviour {
 			GameAnalytics.NewDesignEvent ("High score", newHighscore);
 			leaderboard.OnAddScoreToLeaderBoard (newHighscore);
 		}
+		leaderboard.checkForAchievement (newHighscore);
 	}
 
 	public float getHighscore(){

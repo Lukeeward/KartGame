@@ -10,6 +10,7 @@ public class ScoreScript : MonoBehaviour {
 	public UnityEngine.UI.Text finalScoreText; 
 	public UnityEngine.UI.Text finalDistanceText;
 	public UnityEngine.UI.Text finalHighscore;
+	public UnityEngine.UI.Text saveMeTotalGold;
 	public PlayerScript player;
 	public MenuScript menu;
 	public HighscoreScript highscoreScript;
@@ -36,8 +37,10 @@ public class ScoreScript : MonoBehaviour {
 	}
 
 	public void checkIfNewHighscore() {
-		if (highscoreScript.checkHighscore (distanceScore)) {
-			menu.displayNewHighscoreText ();
+		if(!menu.newHighScoreTextIsVisible()) {
+			if (highscoreScript.checkHighscore (distanceScore)) {
+				menu.displayNewHighscoreText ();
+			}
 		}
 	}
 
@@ -107,8 +110,10 @@ public class ScoreScript : MonoBehaviour {
 	}
 
 	public void showFinalScore(float highscore){
+		var overallGold = getOverallGoldScore ().ToString();
 		finalDistanceText.text = distanceScore.ToString() + "m";
-		finalScoreText.text = getOverallGoldScore().ToString();
+		finalScoreText.text = overallGold;
+		saveMeTotalGold.text = "Total gold: " + overallGold;
 		finalHighscore.text = highscore.ToString () + "m";
 		savePersistantGoldScore (getOverallGoldScore ());
 	}

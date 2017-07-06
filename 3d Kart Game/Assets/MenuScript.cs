@@ -25,6 +25,7 @@ public class MenuScript : MonoBehaviour {
 	public Sprite muteSprite;
 	public InputField feedbackForm;
 	public LeaderboardScript leaderboard;
+	public Text remainingFreeSaveText;
 
 	public CanvasGroup enjoyingGameCanvas;
 	public CanvasGroup sendFeedbackCanvas;
@@ -36,12 +37,25 @@ public class MenuScript : MonoBehaviour {
 	private bool pauseToggle = false;
 	private bool muteToggle = false;
 	private int timesPlayed;
+	private float timeLeft = 0;
+	private bool saveMeIsVisible = false;
 
 	void Start() {
 		if(PlayerPrefs.HasKey("mute")) {
 			localIsMute = PlayerPrefs.GetInt ("mute");
 		}
 		PlayGamesPlatform.Activate ();
+		timeLeft = getRemainingFreeSaveTime ();
+	}
+
+	void Update()
+	{
+		if (saveMeIsVisible) 
+		{
+			//Check that the menu is visible before doing this stuff
+			timeLeft = timeLeft - Time.deltaTime;
+			setLastUseCountDown (timeLeft);
+		}
 	}
 
 	public void hideMenuAndStartGame(){
@@ -121,10 +135,7 @@ public class MenuScript : MonoBehaviour {
 	public void ChangeToEndless(){
 		UnityEngine.SceneManagement.SceneManager.LoadScene("3dkartgameProcGen");
 	}
-
-	public void changeToLevel(){
-		//UnityEngine.SceneManagement.SceneManager.LoadScene("3dkartgame");
-	}
+		
 	public void togglePause(){
 		if (pauseToggle == false) {
 			pauseGame ();
@@ -151,7 +162,7 @@ public class MenuScript : MonoBehaviour {
 		deathUI.alpha = 0f;
 		deathUI.blocksRaycasts = false;
 		hideDeathMenu ();
-
+		saveMeIsVisible = true;
 		saveMePopupCanvas.alpha = 1;
 		saveMePopupCanvas.blocksRaycasts = true;
 		saveMePopupCanvas.interactable = true;
@@ -164,6 +175,7 @@ public class MenuScript : MonoBehaviour {
 			freeSaveButton.interactable = true;
 		} else {
 			freeSaveButton.interactable = false;
+			timeLeft = getRemainingFreeSaveTime ();
 		}
 	}
 
@@ -171,6 +183,7 @@ public class MenuScript : MonoBehaviour {
 		saveMePopupCanvas.alpha = 0;
 		saveMePopupCanvas.blocksRaycasts = false;
 		saveMePopupCanvas.interactable = false;
+		saveMeIsVisible = false;
 	}
 
 	public void savePlayer() {
@@ -207,6 +220,7 @@ public class MenuScript : MonoBehaviour {
 			string lastUseString = ZPlayerPrefs.GetString ("freeSysString");
 			lastUse = DateTime.Parse (lastUseString);
 			var currentTime = DateTime.Now.Ticks;
+			var currentTimess = DateTime.Now;
 			var limitTime = lastUse.AddMinutes (15d).Ticks;
 			if (limitTime < currentTime) {
 				return true;
@@ -215,6 +229,38 @@ public class MenuScript : MonoBehaviour {
 			}
 		} else {
 			return true;
+		}
+	}
+
+	private void setLastUseCountDown(float timeRemaining)
+	{
+		if (timeRemaining > 0) {
+			remainingFreeSaveText.text = "Next save in: " + (Mathf.Floor(timeRemaining / 60).ToString("00")  + ":" + Mathf.RoundToInt (timeRemaining % 60).ToString ("00"));
+		} else {
+			remainingFreeSaveText.text = "";
+			if (canUseFreeSave ())
+			{
+				freeSaveButton.interactable = true;
+			}
+		}
+	}
+
+	private float getRemainingFreeSaveTime()
+	{
+		if (ZPlayerPrefs.HasKey ("freeSysString")) {
+			DateTime lastUse = DateTime.Now;
+			string lastUseString = ZPlayerPrefs.GetString ("freeSysString");
+			lastUse = DateTime.Parse (lastUseString);
+			var currentTime = DateTime.Now;
+			if (lastUse.CompareTo (currentTime) <= 0) {
+				var limitTime = lastUse.AddMinutes (15d);
+				TimeSpan span = limitTime - currentTime;
+				return (float)span.TotalSeconds;
+			} else {
+				return 0;
+			}
+		} else {
+			return 0;
 		}
 	}
 
@@ -228,6 +274,7 @@ public class MenuScript : MonoBehaviour {
 	public void closeSaveUI() {
 		saveMePopupCanvas.alpha = 0;
 		saveMePopupCanvas.blocksRaycasts = false;
+		saveMeIsVisible = false;
 		skipToMenu ();
 	}
 
@@ -297,13 +344,15 @@ public class MenuScript : MonoBehaviour {
 	public void redirectToPlaystore() {
 		hideAllRatePopups ();
 		#if UNITY_ANDROID
-		Application.OpenURL("market://details?id=" + "APPID");
+		Application.OpenURL("market://details?id=" + "com.InnovationWard.CavernRider");
 		#endif
 	}
 
 	public void sendFeedback() {
-		if(feedbackForm.text != "") {
-			GameAnalytics.NewErrorEvent (GAErrorSeverity.Info,feedbackForm.text);
+		var feedbackText = feedbackForm.text;
+		if(feedbackText != "") {
+			FeedbackScript.sendEmail (feedbackText);
+			GameAnalytics.NewErrorEvent (GAErrorSeverity.Info,feedbackText);
 		}
 		hideAllRatePopups ();
 	}
@@ -320,6 +369,11 @@ public class MenuScript : MonoBehaviour {
 
 	public void displayNewHighscoreText() {
 		newHighscoreTextCanvasGroup.alpha = 1;
+	}
+
+	public bool newHighScoreTextIsVisible()
+	{
+		return newHighscoreTextCanvasGroup.alpha == 1;
 	}
 
 	public void hideNewHighscoreText() {

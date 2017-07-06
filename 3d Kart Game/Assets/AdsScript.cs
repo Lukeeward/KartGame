@@ -19,14 +19,11 @@ public class AdsScript : MonoBehaviour
 		switch (result)
 		{
 		case ShowResult.Finished:
-			Debug.Log ("The ad was successfully shown.");
 			currentMenu.closeUIAndContinue ();
 			break;
 		case ShowResult.Skipped:
-			Debug.Log("The ad was skipped before reaching the end.");
 			break;
 		case ShowResult.Failed:
-			Debug.LogError("The ad failed to be shown.");
 			break;
 		}
 	}
