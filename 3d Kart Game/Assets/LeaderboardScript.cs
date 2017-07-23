@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
 using System;
 using GameAnalyticsSDK;
@@ -10,28 +9,6 @@ public class LeaderboardScript : MonoBehaviour {
 
 	void Start ()
 	{
-		PlayGamesPlatform.DebugLogEnabled = true;
-	}
-
-	/// <summary>
-	/// Login In Into Your Google+ Account
-	/// </summary>
-	public void LogIn (bool ShowLeaderboard = false)
-	{
-		try{
-		Social.localUser.Authenticate ((bool success) =>
-			{
-				if (success) {
-					if(ShowLeaderboard)
-					{
-						OnShowLeaderBoard();
-					}
-				} else {
-				}
-			});
-		} catch(Exception ex) {
-			GameAnalytics.NewErrorEvent (GAErrorSeverity.Error, ex.Message);
-		}
 	}
 
 	/// <summary>
@@ -39,10 +16,8 @@ public class LeaderboardScript : MonoBehaviour {
 	/// </summary>
 	public void OnShowLeaderBoard ()
 	{
-		if (PlayGamesPlatform.Instance.IsAuthenticated()) {
-			((PlayGamesPlatform)Social.Active).ShowLeaderboardUI (leaderboard);
-		} else {
-			LogIn (true);
+		if (AGSClient.IsServiceReady()) {
+			AGSLeaderboardsClient.ShowLeaderboardsOverlay();
 		}
 	}
 
@@ -51,47 +26,33 @@ public class LeaderboardScript : MonoBehaviour {
 	/// </summary>
 	public void OnAddScoreToLeaderBoard (float newScore)
 	{
-		if (PlayGamesPlatform.Instance.IsAuthenticated()) {
-			Social.ReportScore ((int)newScore, leaderboard, (bool success) =>
-				{
-					if (success) {
-						Debug.Log ("Update Score Success");
-					} else {
-						Debug.Log ("Update Score Fail");
-						GameAnalytics.NewErrorEvent (GAErrorSeverity.Error, "Update score failed");
-					}
-				});
+		if (AGSClient.IsServiceReady()) {
+			try {
+				AGSLeaderboardsClient.SubmitScore("leaderboard", Convert.ToInt64(newScore));
+			} catch (Exception) {
+				GameAnalytics.NewErrorEvent (GAErrorSeverity.Error, "Update score failed");
+			}
 		}
 	}
 
 
 	public void checkForAchievement(float newScore)
 	{
-		if (PlayGamesPlatform.Instance.IsAuthenticated ()) {
+		if (AGSClient.IsServiceReady()) {
 			if (newScore >= 50) {
-				Social.ReportProgress ("CgkI7-2Us6EDEAIQAg", 100.0f, (bool success) => {
-					Debug.Log(success);
-				});
+				AGSAchievementsClient.UpdateAchievementProgress ("50", 100);
 			}
 			if (newScore >= 150) {
-				Social.ReportProgress ("CgkI7-2Us6EDEAIQAw", 100.0f, (bool success) => {
-					Debug.Log(success);
-				});
+				AGSAchievementsClient.UpdateAchievementProgress ("150", 100);
 			}
 			if (newScore >= 300) {
-				Social.ReportProgress ("CgkI7-2Us6EDEAIQBA", 100.0f, (bool success) => {
-					Debug.Log(success);
-				});
+				AGSAchievementsClient.UpdateAchievementProgress ("300", 100);
 			}
 			if (newScore >= 500) {
-				Social.ReportProgress ("CgkI7-2Us6EDEAIQBQ", 100.0f, (bool success) => {
-					Debug.Log(success);
-				});
+				AGSAchievementsClient.UpdateAchievementProgress ("500", 100);
 			}
 			if (newScore >= 1000) {
-				Social.ReportProgress ("CgkI7-2Us6EDEAIQBg", 100.0f, (bool success) => {
-					Debug.Log(success);
-				});
+				AGSAchievementsClient.UpdateAchievementProgress ("1000", 100);
 			}
 		}
 	}

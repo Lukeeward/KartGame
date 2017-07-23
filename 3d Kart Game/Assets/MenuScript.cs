@@ -44,8 +44,25 @@ public class MenuScript : MonoBehaviour {
 		if(PlayerPrefs.HasKey("mute")) {
 			localIsMute = PlayerPrefs.GetInt ("mute");
 		}
-		PlayGamesPlatform.Activate ();
+		bool isServiceReady = AGSClient.IsServiceReady();
+		if(isServiceReady)
+		{
+			AGSClient.ServiceReadyEvent += serviceReadyHandler;
+			AGSClient.ServiceNotReadyEvent += serviceNotReadyHandler;
+			bool usesLeaderboards = true;
+			bool usesAchievements = true;
+			bool usesWhispersync = true;
+			AGSClient.Init (usesLeaderboards, usesAchievements, usesWhispersync);
+		}
 		timeLeft = getRemainingFreeSaveTime ();
+	}
+
+	private void serviceNotReadyHandler (string error)    {
+		Debug.Log("Service is not ready");
+	}
+
+	private void serviceReadyHandler ()    {
+		Debug.Log("Service is ready");
 	}
 
 	void Update()

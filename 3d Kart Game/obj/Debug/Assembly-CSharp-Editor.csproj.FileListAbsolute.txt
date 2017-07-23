@@ -43,3 +43,4 @@ E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEditor.TreeEditor.xml
 E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp-Editor.csprojResolveAssemblyReference.cache
 E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp-Editor.dll
 E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp-Editor.pdb
+E:\Unity\3d Kart Game\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

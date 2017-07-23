@@ -270,13 +270,23 @@
      <Compile Include="Assets\TrackGeneration.cs" />
      <Compile Include="Assets\ZFrame\ZPlayerPrefs.cs" />
      <Compile Include="Assets\audioScript.cs" />
+     <None Include="Assets\Plugins\AmazonGameCircleLicense.txt" />
+     <None Include="Assets\Plugins\Android\assets\api_key.txt" />
+     <None Include="Assets\Plugins\AmazonGameCirclePluginVersion.txt" />
      <None Include="Assets\GameAnalytics\Readme.txt" />
      <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
      <None Include="Assets\GooglePlayGames\Editor\template-AndroidManifest.txt" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\Plugins\AmazonGameCircleNotice.txt" />
+     <None Include="Assets\Plugins\Android\res\drawable\gc_overlay_spinner.xml" />
+     <None Include="Assets\Plugins\Android\res\drawable\rounded_corners.xml" />
      <None Include="Assets\GooglePlayGames\Editor\template-Constants.txt" />
      <None Include="Assets\Plugins\Android\MainLibProj\AndroidManifest.xml" />
      <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver.txt" />
+     <None Include="Assets\Plugins\Android\GameCircleSampleAndroidManifest.xml" />
+     <None Include="Assets\Plugins\Android\res\layout\modal_overlay_container.xml" />
+     <None Include="Assets\Plugins\Android\res\values\amazon_gc_styles.xml" />
+     <None Include="Assets\Plugins\AmazonCommon\Source\MiniJSON\MiniJSONLicense.txt" />
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>E:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
@@ -286,6 +296,10 @@
  <Reference Include="UnityEngine.Networking">
  <HintPath>E:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{04064773-EFC3-3C50-C844-471D945D22DD}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

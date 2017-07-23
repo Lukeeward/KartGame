@@ -78,13 +78,23 @@
      <Compile Include="Assets\GooglePlayGames\Editor\xcode\Sections.cs" />
      <Compile Include="Assets\GooglePlayGames\Editor\xcode\Serializer.cs" />
      <Compile Include="Assets\GooglePlayGames\Editor\xcode\Utils.cs" />
+     <None Include="Assets\Plugins\AmazonGameCircleLicense.txt" />
+     <None Include="Assets\Plugins\Android\assets\api_key.txt" />
+     <None Include="Assets\Plugins\AmazonGameCirclePluginVersion.txt" />
      <None Include="Assets\GameAnalytics\Readme.txt" />
      <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
      <None Include="Assets\GooglePlayGames\Editor\template-AndroidManifest.txt" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\Plugins\AmazonGameCircleNotice.txt" />
+     <None Include="Assets\Plugins\Android\res\drawable\gc_overlay_spinner.xml" />
+     <None Include="Assets\Plugins\Android\res\drawable\rounded_corners.xml" />
      <None Include="Assets\GooglePlayGames\Editor\template-Constants.txt" />
      <None Include="Assets\Plugins\Android\MainLibProj\AndroidManifest.xml" />
      <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver.txt" />
+     <None Include="Assets\Plugins\Android\GameCircleSampleAndroidManifest.xml" />
+     <None Include="Assets\Plugins\Android\res\layout\modal_overlay_container.xml" />
+     <None Include="Assets\Plugins\Android\res\values\amazon_gc_styles.xml" />
+     <None Include="Assets\Plugins\AmazonCommon\Source\MiniJSON\MiniJSONLicense.txt" />
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>E:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
@@ -135,6 +145,8 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{04064773-EFC3-3C50-C844-471D945D22DD}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{22A176DE-F0F1-F66F-88E2-138D640E9A83}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
