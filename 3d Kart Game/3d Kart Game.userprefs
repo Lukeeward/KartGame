@@ -1,12 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.AttachToProcess" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\AdsScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\LeaderboardScript.cs">
     <Files>
-      <File FileName="Assets\AdsScript.cs" Line="22" Column="38" />
+      <File FileName="Assets\Plugins\Android\AndroidManifest.xml" Line="68" Column="29" />
+      <File FileName="Assets\AdsScript.cs" Line="2" Column="19" />
       <File FileName="Assets\MenuScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\LeaderboardScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\LeaderboardScript.cs" Line="18" Column="3" />
       <File FileName="Assets\ScoreScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\HighscoreScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\HighscoreScript.cs" Line="29" Column="1" />
       <File FileName="Assets\CameraScript.cs" Line="1" Column="1" />
       <File FileName="Assets\TokenScript.cs" Line="1" Column="1" />
       <File FileName="Assets\TrackGeneration.cs" Line="1" Column="1" />
@@ -19,7 +20,9 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="E:\Unity\3d Kart Game\Assets\LeaderboardScript.cs" line="83" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\LeaderboardScript.cs" line="41" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\LeaderboardScript.cs" line="31" column="1" />
+      <Breakpoint file="E:\Unity\3d Kart Game\Assets\LeaderboardScript.cs" line="47" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

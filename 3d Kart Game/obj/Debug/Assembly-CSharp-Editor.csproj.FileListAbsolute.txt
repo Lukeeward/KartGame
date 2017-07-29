@@ -1,3 +1,4 @@
+E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp-Editor.csprojResolveAssemblyReference.cache
 E:\Unity\3d Kart Game\Temp\bin\Debug\Assembly-CSharp-Editor.dll
 E:\Unity\3d Kart Game\Temp\bin\Debug\Assembly-CSharp-Editor.pdb
 E:\Unity\3d Kart Game\Temp\bin\Debug\Google.IOSResolver.dll
@@ -28,6 +29,7 @@ E:\Unity\3d Kart Game\Temp\bin\Debug\Mono.Cecil.Mdb.dll
 E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEditor.iOS.Extensions.Common.dll
 E:\Unity\3d Kart Game\Temp\bin\Debug\Unity.CecilTools.dll
 E:\Unity\3d Kart Game\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+E:\Unity\3d Kart Game\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 E:\Unity\3d Kart Game\Temp\bin\Debug\Assembly-CSharp.pdb
 E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEngine.xml
 E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEditor.xml
@@ -40,7 +42,5 @@ E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEditor.UI.xml
 E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEngine.Networking.xml
 E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEditor.Networking.xml
 E:\Unity\3d Kart Game\Temp\bin\Debug\UnityEditor.TreeEditor.xml
-E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp-Editor.csprojResolveAssemblyReference.cache
 E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp-Editor.dll
 E:\Unity\3d Kart Game\obj\Debug\Assembly-CSharp-Editor.pdb
-E:\Unity\3d Kart Game\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

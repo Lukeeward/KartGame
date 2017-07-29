@@ -45,7 +45,7 @@ public class MenuScript : MonoBehaviour {
 			localIsMute = PlayerPrefs.GetInt ("mute");
 		}
 		bool isServiceReady = AGSClient.IsServiceReady();
-		if(isServiceReady)
+		if(!isServiceReady)
 		{
 			AGSClient.ServiceReadyEvent += serviceReadyHandler;
 			AGSClient.ServiceNotReadyEvent += serviceNotReadyHandler;
